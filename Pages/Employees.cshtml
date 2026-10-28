@@ -1,0 +1,215 @@
+﻿@page
+@model EmployeesModel
+
+@{
+    ViewData["Title"] = "Employee Management";
+}
+
+<style>
+    .employee-container {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 25px;
+    }
+
+    .header {
+        background: #1e3c72;
+        color: white;
+        padding: 25px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+    }
+
+        .header h1 {
+            margin: 0;
+        }
+
+    .search-box {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+    }
+
+    .search-row {
+        display: flex;
+        gap: 10px;
+    }
+
+    .search-input {
+        flex: 1;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 16px;
+    }
+
+    .button {
+        padding: 12px 20px;
+        border: none;
+        border-radius: 6px;
+        background: #1e3c72;
+        color: white;
+        cursor: pointer;
+    }
+
+        .button:hover {
+            background: #2a5298;
+        }
+
+    .employee-form {
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 11px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+
+    .message {
+        display: block;
+        margin: 15px 0;
+        color: #c00;
+        font-weight: bold;
+    }
+
+    .success {
+        color: green;
+    }
+
+    @@media (max-width: 600px) {
+        .employee-container {
+            width: 95%;
+            padding: 10px;
+        }
+
+        .search-row {
+            flex-direction: column;
+        }
+
+        .button {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="employee-container">
+
+    <div class="header">
+        <h1>Employee Management</h1>
+
+        <p>
+            Department:
+            @Model.Department
+        </p>
+    </div>
+
+    <div class="search-box">
+
+        <h2>Search Employee</h2>
+
+        <form method="post" asp-page-handler="Search">
+
+            <div class="search-row">
+
+                <input asp-for="SearchEmployeeNo"
+                       class="search-input"
+                       placeholder="Enter Employee No e.g. EMP001" />
+
+                <button type="submit"
+                        class="button">
+                    Search
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.Message))
+    {
+        <div class="message">
+            @Model.Message
+        </div>
+    }
+
+    <div class="employee-form">
+
+        <h2>Employee Information</h2>
+
+        <form method="post" asp-page-handler="Update">
+
+            <input type="hidden"
+                   asp-for="EmployeeID" />
+
+            <div class="form-group">
+                <label>Employee No</label>
+
+                <input asp-for="EmployeeNo"
+                       class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label>First Name</label>
+
+                <input asp-for="FirstName"
+                       class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label>Last Name</label>
+
+                <input asp-for="LastName"
+                       class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+
+                <input asp-for="Email"
+                       class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label>Phone</label>
+
+                <input asp-for="Phone"
+                       class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label>Position</label>
+
+                <input asp-for="Position"
+                       class="form-control" />
+            </div>
+
+            <button type="submit"
+                    class="button">
+                Update & Save
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
